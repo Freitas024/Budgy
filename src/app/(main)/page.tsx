@@ -7,7 +7,6 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const { goTo } = useNavigate();
-  const { mockLogin } = useAuth();
 
   return (
     <div className="flex flex-col justify-center items-center py-12">
@@ -16,7 +15,6 @@ export default function Home() {
       <button
         className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
         onClick={() => {
-          mockLogin()
           goTo("/forms")
         }}>
         solicitar Orçamento
@@ -30,7 +28,6 @@ export default function Home() {
       <button
         className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
         onClick={() => {
-          mockLogin()
           goTo("/forms")
         }}
       >

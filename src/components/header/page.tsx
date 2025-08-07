@@ -1,11 +1,9 @@
 "use client"; 
 
 import { useNavigate } from "@/hooks/useNavigate";
-import {useAuth} from "@/hooks/useAuth";
 
 export default function Header() {
   const { goTo } = useNavigate();
-  const { mockLogin } = useAuth();
 
   return (
     <header className="w-full bg-[var(--background)] h-24 flex items-center px-50 justify-between">
@@ -18,7 +16,6 @@ export default function Header() {
       <button  
       onClick={() => {
         goTo("/login")
-        mockLogin()
       }} 
       className="flex justify-center items-center w-24 h-6 text-[var(--foreground)] font-normal text-sm outline rounded-sm cursor-pointer hover:shadow-black">Admin</button>
     </header>
