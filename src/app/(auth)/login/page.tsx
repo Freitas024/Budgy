@@ -1,4 +1,10 @@
+"use client";
+
+import { useAuth } from "@/hooks/useAuth";
+
 export default function Login(){
+  useAuth();
+  
   return(
     <main className="h-screen flex flex-col justify-center items-center">
         <form>

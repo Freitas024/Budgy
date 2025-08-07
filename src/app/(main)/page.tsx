@@ -1,11 +1,13 @@
 "use client";
 
-import ChoiceCard from "../../components/choiceCard/page";
-import OperatingCard from "../../components/operatingCard/page";
+import ChoiceCard from "@/components/choiceCard/page";
+import OperatingCard from "@/components/operatingCard/page";
 import { useNavigate } from "@/hooks/useNavigate";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const { goTo } = useNavigate();
+  const { mockLogin } = useAuth();
 
   return (
     <div className="flex flex-col justify-center items-center py-12">
@@ -13,7 +15,10 @@ export default function Home() {
       <h3 className="text-[var(--foreground)] text-center w-140 pb-12 text-lg font-light">Receba propostas sob medida para os serviços ou produtos que sua empresa precisa, de forma simples e rápida.</h3>
       <button
         className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
-        onClick={() => goTo("/forms")}>
+        onClick={() => {
+          mockLogin()
+          goTo("/forms")
+        }}>
         solicitar Orçamento
       </button>
       <h2 className="text-[var(--foreground)] font-bold text-2xl pt-30 pb-6 ">Por que escolher a budgy?</h2>
@@ -22,7 +27,15 @@ export default function Home() {
       <OperatingCard />
       <h2 className="text-[var(--foreground)] font-bold text-2xl pt-30 pb-3 ">Pronto para começar?</h2>
       <h3 className="text-[var(--foreground)] font-light text-lg pb-12 w-xl text-center ">Solicite seu orçamento personalizado agora mesmo e veja como podemos ajudar sua empresa.</h3>
-      <button className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer">solicitar Orçamento</button>
+      <button
+        className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
+        onClick={() => {
+          mockLogin()
+          goTo("/forms")
+        }}
+      >
+        solicitar Orçamento
+      </button>
     </div>
   )
 }
