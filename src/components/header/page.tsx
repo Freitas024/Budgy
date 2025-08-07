@@ -10,7 +10,7 @@ export default function Header() {
         </div>
         <h2 className="text-2xl font-bold text-[#7C3AED]">Budgy</h2>
       </div>
-      <Link  href="/login" className="flex justify-center items-center w-24 h-6 text-[var(--foreground)] font-normal text-sm outline rounded-sm cursor-pointer hover:shadow-black">Admin</Link>
+      <button  href="/login" className="flex justify-center items-center w-24 h-6 text-[var(--foreground)] font-normal text-sm outline rounded-sm cursor-pointer hover:shadow-black">Admin</button>
     </header>
   )
 }
