@@ -3,7 +3,6 @@
 import ChoiceCard from "@/components/choiceCard/page";
 import OperatingCard from "@/components/operatingCard/page";
 import { useNavigate } from "@/hooks/useNavigate";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const { goTo } = useNavigate();
