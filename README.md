@@ -7,7 +7,11 @@ A aplicação permite que clientes enviem pedidos de orçamento de forma simples
 
 O foco do projeto é proporcionar uma experiência fluida para o usuário, com formulários claros, design moderno e fluxo otimizado para reduzir a burocracia e aumentar a eficiência na comunicação entre cliente e empresa.
 
-# Pagina de dashboard ainda em produção ...
+# Observações - projeto em crescimento
+<ul>
+    <li>Pagina de dashboard em desenvolvimento</li>
+    <li>api em desenvolvimento</li>
+</ul>
 
 ## 📦 Como Rodar o Projeto Localmente
 
