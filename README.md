@@ -7,6 +7,8 @@ A aplicação permite que clientes enviem pedidos de orçamento de forma simples
 
 O foco do projeto é proporcionar uma experiência fluida para o usuário, com formulários claros, design moderno e fluxo otimizado para reduzir a burocracia e aumentar a eficiência na comunicação entre cliente e empresa.
 
+# Pagina de dashboard ainda em produção ...
+
 ## 📦 Como Rodar o Projeto Localmente
 
 # Clonar o repositório
