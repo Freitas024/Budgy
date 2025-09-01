@@ -2,6 +2,8 @@
 
 import Input from "@/components/formField/FormField";
 import InputSelect from "@/components/inputSelect/InputSelect";
+import TextArea from "@/components/textArea/TextArea";
+import { Download } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -41,6 +43,19 @@ export default function Home() {
           textOption3="Consultoria"
           textOption4="Marketing Digital"
           textOption5="Outros"
+        />
+        <TextArea
+          textLabel="Descrição detalhada *"
+          textArea="Descreva em detalhes o produto/serviço que você deseja...."
+          placeholder="Descrição do produto/serviço"
+          name="descricao"
+          id="descricao"
+        />
+        <Input
+          textLabel="Anexar Arquivo (opcional)"
+          type="file"
+          placeholder="Adicione um arquivo como exemplo"
+          icon={<Download size={24}/>}
         />
       </form>
     </main>

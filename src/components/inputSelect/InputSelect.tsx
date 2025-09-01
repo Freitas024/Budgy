@@ -24,7 +24,7 @@ export default function InputSelect({
 }) {
   return (
     <main >
-      <label className="block text-lg font-medium text-gray-700 mb-2">{textLabel}</label>
+      <label className="block text-sm font-medium text-[var(--foreground)] mb-2">{textLabel}</label>
       <select className="w-full p-2 border rounded-lg" id={textId} name={textName} required>
         <option value={optionTextValue} disabled selected>
           {textOption}
