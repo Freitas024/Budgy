@@ -1,7 +1,7 @@
 "use client";
 
-import { Upload } from "lucide-react";
-import FormField from "@/components/formField/FormField";
+import Input from "@/components/formField/FormField";
+import InputSelect from "@/components/inputSelect/InputSelect";
 
 export default function Home() {
   return (
@@ -17,79 +17,31 @@ export default function Home() {
         <h3 className="text-[#7C3AED] font-medium">
           Informações para orçamento
         </h3>
-        <FormField
-          as="input"
+        <Input
+          textLabel="Nome *"
           type="text"
-          name="name"
-          id="name"
-          label="nome"
-          placeholder="Seu nome completo"
-          required
+          placeholder="Seu nome completo ..."
         />
-        <FormField
-          as="input"
+
+        <Input textLabel="email *" type="text" placeholder="Seu@email.com" />
+        <Input
+          textLabel="Telefone *"
           type="text"
-          name="email"
-          id="email"
-          label="E-mail"
-          placeholder="Seu@email.com"
-          required
+          placeholder="(84) 99999-9999"
         />
-        <FormField
-          as="input"
-          type="tel"
-          name="phone"
-          id="phone"
-          label="Telefone"
-          placeholder="(00) 0.0000-0000"
-          required
+
+        <InputSelect
+          textLabel="Tipo de Serviço/Produto"
+          textId="tipo-servico"
+          textName="tipo-servico"
+          optionTextValue=""
+          textOption="Selecione o tipo de serviço"
+          textOption1="Desenvolvimento web"
+          textOption2="Design Gráfico"
+          textOption3="Consultoria"
+          textOption4="Marketing Digital"
+          textOption5="Outros"
         />
-        <FormField
-          as="select"
-          name="select"
-          id="select"
-          label="Selecione um serviço *"
-          placeholder="Selecione um serviço *"
-          options={[
-            { value: "serviços", label: "Selecione um serviço" },
-            { value: "design", label: "Designer Gráfico" },
-            { value: "dev", label: "Desenvolvimento web" },
-            { value: "marketing", label: "Marketing Digital" },
-            { value: "ux", label: "UX Research" },
-            { value: "ui", label: "ui designer" },
-          ]}
-          required
-        />
-        <FormField
-          as="textarea"
-          name="descricao"
-          id="descricao"
-          label="Descrição detalhada *"
-          placeholder="Descreva com detalhes o que você precisa, incluindo prazos, objetivos e qualquer informação relevante... "
-          className="h-30"
-          required
-        />
-        <FormField
-          as="input"
-          type="File"
-          name="file"
-          id="arquivo"
-          label="Anexar arquivo (opcional)"
-          className="hidden"
-        />
-        <label
-          htmlFor="arquivo"
-          className="h-30 border border-dashed rounded-xl flex flex-col justify-center items-center border-[#9D9D9D] hover:border-[#7C3AED] hover:text-[#7c3aed] cursor-pointer text-[#5d5d5d] text-sm"
-        >
-          <Upload />
-          Clique aqui para anexar um arquivo
-        </label>
-        <button
-          className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-1 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
-          type="submit"
-        >
-          Enviar
-        </button>
       </form>
     </main>
   );
