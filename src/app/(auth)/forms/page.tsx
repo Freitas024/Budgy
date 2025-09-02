@@ -3,6 +3,8 @@
 import Input from "@/components/formField/FormField";
 import InputSelect from "@/components/inputSelect/InputSelect";
 import TextArea from "@/components/textArea/TextArea";
+import Button from "@/components/button/button";
+
 import { Download } from 'lucide-react';
 
 export default function Home() {
@@ -57,6 +59,7 @@ export default function Home() {
           placeholder="Adicione um arquivo como exemplo"
           icon={<Download size={24}/>}
         />
+        <Button textButton="Enviar formulario" className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-2 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"/>
       </form>
     </main>
   );

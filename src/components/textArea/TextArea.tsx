@@ -17,7 +17,7 @@ export default function TextArea({
         {textLabel}
       </label>
       <textarea
-        className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm resize-y"
+        className="mt-1 block w-full h-[12rem] px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm resize-y"
         placeholder={placeholder}
         name={name}
         id={id}
