@@ -1,0 +1,15 @@
+import Header from "@/components/headerDashboard/headerDashboard";
+import "@/styles/globals.css";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <div>
+      <Header />
+      {children}
+    </div>
+  );
+}
