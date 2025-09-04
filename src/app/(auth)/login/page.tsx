@@ -3,7 +3,7 @@
 import { useNavigate } from "@/hooks/useNavigate";
 import Logo from "@/components/logoMarca/LogoMarca";
 import Button from "@/components/button/button";
-
+  
 export default function Login() {
   const { goTo } = useNavigate();
 
@@ -30,13 +30,13 @@ export default function Login() {
           required
         />
         <Button
+          type="button"
           className="bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-2 mt-18 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer"
           textButton="Entrar"
           onClick={() => {
             goTo("/dashboard");
           }}
         />
-          
       </form>
     </main>
   );

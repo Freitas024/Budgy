@@ -7,7 +7,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button({
     textButton,
     className = "bg-[#7C3AED] text-[#FFFFFF] text-md px-6 py-2 mt-18 font-semibold rounded-xl flex justify-center items-center hover:shadow-lg cursor-pointer",
-    icon
+    icon,
+    ...props
 }: ButtonProps) {
-  return <button className={className}> {icon && <span>{icon}</span>} {textButton}</button>;
+  return <button {...props} className={className}> {icon && <span>{icon}</span>} {textButton}</button>;
 }
