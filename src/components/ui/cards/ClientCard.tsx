@@ -1,15 +1,9 @@
 "use client";
 
 import React from "react";
+import { Cliente } from "@/src/types";
 
-interface ClientCardProps {
-    companyName: string;
-    contactName: string;
-    status: "ativo" | "inativo" | "pendente";
-    budgets: number;
-    conversion: string;
-    total: string;
-    lastContact: string;
+interface ClientCardProps extends Cliente {
     onViewDetails?: () => void;
 }
 

@@ -1,4 +1,6 @@
-export const mockClients = [
+import { Cliente } from "@/src/types";
+
+export const mockClients: Cliente[] = [
     {
         companyName: "TechSoft Ltda.",
         contactName: "Carlos Mendes",

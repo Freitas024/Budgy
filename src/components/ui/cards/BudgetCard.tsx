@@ -1,15 +1,9 @@
 "use client";
 
 import React from "react";
+import { Orcamento } from "@/src/types";
 
-interface BudgetCardProps {
-    code: string;
-    title: string;
-    clientName: string;
-    status: "aprovado" | "pendente" | "recusado";
-    value: string;
-    createdAt: string;
-    validUntil: string;
+interface BudgetCardProps extends Orcamento {
     onViewDetails?: () => void;
 }
 

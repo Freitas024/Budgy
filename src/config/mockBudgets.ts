@@ -1,4 +1,6 @@
-export const mockBudgets = [
+import { Orcamento } from "@/src/types";
+
+export const mockBudgets: Orcamento[] = [
     {
         code: "ORC-001",
         title: "Migração Cloud ERP",
