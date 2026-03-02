@@ -3,10 +3,12 @@
 import { SearchInput } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { ClientCard } from "@/src/components/ui/cards";
-import { mockClients } from "@/src/config";
+import { useClientes } from "@/src/hooks/useClientes";
 import { Plus } from "lucide-react";
 
 export default function ClientePage() {
+    const { clientes, isLoading, error } = useClientes();
+
     return (
         <div>
             {/* Header */}
@@ -25,16 +27,37 @@ export default function ClientePage() {
 
             {/* Search */}
             <SearchInput
-                placeholder="Buscar cliente por nome, e-mail, telefone..."
+                placeholder="Buscar cliente por nome, telefone..."
                 className="mb-6"
             />
 
+            {/* Error */}
+            {error && (
+                <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-sm text-red-400 mb-6">
+                    {error}
+                </div>
+            )}
+
+            {/* Loading */}
+            {isLoading && (
+                <p className="text-sm text-zinc-500 text-center py-10">
+                    Carregando clientes...
+                </p>
+            )}
+
+            {/* Empty state */}
+            {!isLoading && !error && clientes.length === 0 && (
+                <p className="text-sm text-zinc-500 text-center py-10">
+                    Nenhum cliente encontrado.
+                </p>
+            )}
+
             {/* Client cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {mockClients.map((client) => (
+                {clientes.map((cliente) => (
                     <ClientCard
-                        key={client.companyName}
-                        {...client}
+                        key={cliente.id}
+                        cliente={cliente}
                         onViewDetails={() => { }}
                     />
                 ))}

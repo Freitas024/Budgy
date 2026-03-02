@@ -32,3 +32,24 @@ export async function registerUser(data: RegisterData): Promise<AuthResponse> {
 
     return json;
 }
+
+export interface LoginData {
+    email: string;
+    password: string;
+}
+
+export async function loginUser(data: LoginData): Promise<AuthResponse> {
+    const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    });
+
+    const json: AuthResponse = await res.json();
+
+    if (!res.ok) {
+        throw new Error(json.error || "E-mail ou senha incorretos.");
+    }
+
+    return json;
+}

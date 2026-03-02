@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useLogin } from "@/src/hooks/useLogin";
 
 export default function AuthPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push("/inicio");
-  };
+  const {
+    formData,
+    handleChange,
+    showPassword, toggleShowPassword,
+    isLoading,
+    error,
+    handleSubmit,
+  } = useLogin();
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
@@ -24,6 +24,13 @@ export default function AuthPage() {
           <h1 className="text-3xl font-bold text-purple-500">Budgy</h1>
           <p className="mt-2 text-sm text-zinc-400">Acesse sua conta</p>
         </div>
+
+        {/* Error message */}
+        {error && (
+          <div className="w-full px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-sm text-red-400">
+            {error}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
@@ -37,6 +44,9 @@ export default function AuthPage() {
               type="email"
               placeholder="seu@empresa.com.br"
               icon={<Mail />}
+              required
+              value={formData.email}
+              onChange={(e) => handleChange("email", e.target.value)}
             />
           </div>
 
@@ -48,10 +58,13 @@ export default function AuthPage() {
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
                 icon={<Lock />}
+                required
+                value={formData.password}
+                onChange={(e) => handleChange("password", e.target.value)}
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={toggleShowPassword}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
               >
                 {showPassword ? (
@@ -81,7 +94,7 @@ export default function AuthPage() {
           </div>
 
           {/* Botão */}
-          <Button type="submit">Entrar</Button>
+          <Button type="submit" isLoading={isLoading}>Entrar</Button>
         </form>
 
         {/* Link de cadastro */}
