@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model clientes {
+  id            Int       @id @default(autoincrement())
+  loja_id       Int?
+  nome          String
+  whatsapp      String    @db.VarChar(20)
+  email         String?
+  observacoes   String?
+  ativo         Boolean?  @default(true)
+  data_cadastro DateTime? @default(now()) @db.Timestamp(6)
+  lojas         lojas?    @relation(fields: [loja_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tickets       tickets[]
+}
+
+model historico_mensagens {
+  id         Int       @id @default(autoincrement())
+  loja_id    Int?
+  session_id String?   @db.VarChar(50)
+  role       String?   @db.VarChar(20)
+  content    String?
+  timestamp  DateTime? @default(now()) @db.Timestamp(6)
+  lojas      lojas?    @relation(fields: [loja_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model lojas {
+  id                    Int                   @id @default(autoincrement())
+  nome                  String                @db.VarChar(100)
+  telefone_whatsapp     String                @unique @db.VarChar(20)
+  ativo                 Boolean?              @default(true)
+  data_cadastro         DateTime?             @default(now()) @db.Timestamp(6)
+  horario_funcionamento String?
+  ramo_atividade        String?               @default("desenvolvimento_software")
+  email                 String?               @unique
+  password_hash         String?
+  clientes              clientes[]
+  historico_mensagens   historico_mensagens[]
+  servicos              servicos[]
+}
+
+model memoria_ia {
+  id         Int     @id @default(autoincrement())
+  session_id String? @db.VarChar(255)
+  message    Json?
+}
+
+model servicos {
+  id           Int      @id @default(autoincrement())
+  loja_id      Int?
+  nome         String?  @db.VarChar(100)
+  preco        Decimal? @db.Decimal(10, 2)
+  instrucao_ia String?
+  lojas        lojas?   @relation(fields: [loja_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([loja_id, nome])
+}
+
+model tickets {
+  id               Int       @id @default(autoincrement())
+  loja_id          Int?
+  descricao_pedido String?
+  data_agendamento DateTime? @db.Date
+  hora_agendamento DateTime? @db.Time(6)
+  status           String?   @default("Aberto")
+  valor_estimado   Decimal?  @db.Decimal(10, 2)
+  data_criacao     DateTime? @default(now()) @db.Timestamp(6)
+  data_validade    DateTime? @db.Date
+  cliente_id       Int?
+  clientes         clientes? @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

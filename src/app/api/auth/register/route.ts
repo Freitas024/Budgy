@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import pool from "@/src/lib/db";
+import prisma from "@/src/lib/db";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
@@ -38,12 +38,12 @@ export async function POST(req: NextRequest) {
         }
 
         // Verificar se email já existe
-        const existingEmail = await pool.query(
-            "SELECT id FROM public.lojas WHERE email = $1",
-            [email]
-        );
+        const existingEmail = await prisma.lojas.findFirst({
+            where: { email },
+            select: { id: true }
+        });
 
-        if (existingEmail.rows.length > 0) {
+        if (existingEmail) {
             return NextResponse.json(
                 { error: "Já existe uma loja cadastrada com este e-mail." },
                 { status: 409 }
@@ -51,12 +51,12 @@ export async function POST(req: NextRequest) {
         }
 
         // Verificar se telefone já existe
-        const existingPhone = await pool.query(
-            "SELECT id FROM public.lojas WHERE telefone_whatsapp = $1",
-            [telefone_whatsapp]
-        );
+        const existingPhone = await prisma.lojas.findFirst({
+            where: { telefone_whatsapp },
+            select: { id: true }
+        });
 
-        if (existingPhone.rows.length > 0) {
+        if (existingPhone) {
             return NextResponse.json(
                 { error: "Já existe uma loja cadastrada com este telefone." },
                 { status: 409 }
@@ -68,26 +68,23 @@ export async function POST(req: NextRequest) {
         const password_hash = await bcrypt.hash(password, salt);
 
         // Inserir no banco
-        const result = await pool.query(
-            `INSERT INTO public.lojas 
-                (nome, telefone_whatsapp, ativo, data_cadastro, horario_funcionamento, ramo_atividade, email, password_hash)
-             VALUES 
-                ($1, $2, true, NOW(), $3, $4, $5, $6)
-             RETURNING id, nome, email`,
-            [
+        const result = await prisma.lojas.create({
+            data: {
                 nome,
                 telefone_whatsapp,
+                ativo: true,
                 horario_funcionamento,
                 ramo_atividade,
                 email,
                 password_hash,
-            ]
-        );
+            },
+            select: { id: true, nome: true, email: true }
+        });
 
         return NextResponse.json(
             {
                 message: "Loja cadastrada com sucesso!",
-                loja: result.rows[0],
+                loja: result,
             },
             { status: 201 }
         );

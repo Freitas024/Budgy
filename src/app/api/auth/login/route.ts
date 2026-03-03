@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import pool from "@/src/lib/db";
+import prisma from "@/src/lib/db";
 import bcrypt from "bcryptjs";
 
 export async function POST(request: NextRequest) {
@@ -15,20 +15,17 @@ export async function POST(request: NextRequest) {
         }
 
         // 2. Buscar loja pelo email
-        const result = await pool.query(
-            "SELECT id, nome, email, password_hash FROM public.lojas WHERE email = $1",
-            [email]
-        );
+        const loja = await prisma.lojas.findUnique({
+            where: { email }
+        });
 
-        // 3. Se não encontrou → 401
-        if (result.rows.length === 0) {
+        // 3. Se não encontrou ou não tem senha → 401
+        if (!loja || !loja.password_hash) {
             return NextResponse.json(
                 { error: "E-mail ou senha incorretos." },
                 { status: 401 }
             );
         }
-
-        const loja = result.rows[0];
 
         // 4. Comparar senha com o hash do banco
         const senhaCorreta = await bcrypt.compare(password, loja.password_hash);
