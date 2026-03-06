@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { SearchInput } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { ClientCard } from "@/src/components/ui/cards";
+import { NewClientModal } from "@/src/components/ui/modal";
 import { useClientes } from "@/src/hooks/useClientes";
 import { Plus } from "lucide-react";
 
 export default function ClientePage() {
-    const { clientes, isLoading, error } = useClientes();
+    const { clientes, isLoading, error, addCliente } = useClientes();
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <div>
@@ -19,7 +22,11 @@ export default function ClientePage() {
                         Gerencie sua base de clientes
                     </h3>
                 </div>
-                <Button fullWidth={false} className="flex items-center gap-2">
+                <Button
+                    fullWidth={false}
+                    className="flex items-center gap-2"
+                    onClick={() => setShowModal(true)}
+                >
                     <Plus className="w-4 h-4" />
                     Adicionar Cliente
                 </Button>
@@ -62,6 +69,13 @@ export default function ClientePage() {
                     />
                 ))}
             </div>
+
+            {/* Modal */}
+            <NewClientModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onSave={addCliente}
+            />
         </div>
     );
 }

@@ -48,6 +48,13 @@ export function useRegister() {
         e.preventDefault();
         setError("");
 
+        // Validar quantidade mínima de dígitos do telefone (10 = fixo, 11 = celular)
+        const phoneDigits = formData.telefoneWhatsapp.replace(/\D/g, "");
+        if (phoneDigits.length < 10) {
+            setError("O telefone deve ter no mínimo 10 dígitos (DDD + número).");
+            return;
+        }
+
         if (formData.password !== formData.confirmPassword) {
             setError("As senhas não coincidem.");
             return;

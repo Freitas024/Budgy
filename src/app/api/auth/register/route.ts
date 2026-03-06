@@ -37,6 +37,15 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Validar quantidade mínima de dígitos do telefone
+        const phoneDigits = telefone_whatsapp.replace(/\D/g, "");
+        if (phoneDigits.length < 10) {
+            return NextResponse.json(
+                { error: "O telefone deve ter no mínimo 10 dígitos (DDD + número)." },
+                { status: 400 }
+            );
+        }
+
         // Verificar se email já existe
         const existingEmail = await prisma.lojas.findFirst({
             where: { email },

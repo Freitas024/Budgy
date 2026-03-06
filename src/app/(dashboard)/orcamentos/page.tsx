@@ -1,12 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { SearchInput } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import { BudgetCard } from "@/src/components/ui/cards";
-import { mockBudgets } from "@/src/config";
+import { NewBudgetModal } from "@/src/components/ui/modal";
+import { useTickets } from "@/src/hooks/useTickets";
 import { Plus } from "lucide-react";
 
 export default function OrcamentosPage() {
+    const { tickets, isLoading, error, addTicket } = useTickets();
+    const [showModal, setShowModal] = useState(false);
+
     return (
         <div>
             {/* Header */}
@@ -17,9 +22,13 @@ export default function OrcamentosPage() {
                         Gerencie suas propostas comerciais
                     </h3>
                 </div>
-                <Button fullWidth={false} className="flex items-center gap-2">
+                <Button
+                    fullWidth={false}
+                    className="flex items-center gap-2"
+                    onClick={() => setShowModal(true)}
+                >
                     <Plus className="w-4 h-4" />
-                    Novo
+                    Novo Orçamento
                 </Button>
             </div>
 
@@ -29,16 +38,44 @@ export default function OrcamentosPage() {
                 className="mb-6"
             />
 
+            {/* Error */}
+            {error && (
+                <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-sm text-red-400 mb-6">
+                    {error}
+                </div>
+            )}
+
+            {/* Loading */}
+            {isLoading && (
+                <p className="text-sm text-zinc-500 text-center py-10">
+                    Carregando orçamentos...
+                </p>
+            )}
+
+            {/* Empty state */}
+            {!isLoading && !error && tickets.length === 0 && (
+                <p className="text-sm text-zinc-500 text-center py-10">
+                    Nenhum orçamento encontrado.
+                </p>
+            )}
+
             {/* Budget cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {mockBudgets.map((budget) => (
+                {tickets.map((ticket) => (
                     <BudgetCard
-                        key={budget.code}
-                        {...budget}
+                        key={ticket.id}
+                        ticket={ticket}
                         onViewDetails={() => { }}
                     />
                 ))}
             </div>
+
+            {/* Modal */}
+            <NewBudgetModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onSave={addTicket}
+            />
         </div>
     );
 }
